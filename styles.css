@@ -1,0 +1,8 @@
+nav {
+    height: 3rem;
+    position: sticky;
+    top: 0;
+  }
+  section {
+    scroll-margin-top: 4rem;
+  }
