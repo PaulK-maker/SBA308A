@@ -1,9 +1,13 @@
 
 
-import { fetchRealTimeStockQuotes, fetchHistoricalRates } from './index.js';
-import { displayRealTimeStockQuotes, displayHistoricalRates } from './import.js';
+import { fetchRealTimeStockQuotes,displayStockQuote } from 'import.js';
+import { fetchHistoricalRates  } from 'export.js';
 
-document.addEventListener('DOMContentLoaded', async () => {
+
+document.addEventListener('DOMContentLoaded', function() {
+    fetchRealTimeStockQuotes();
+    fetchHistoricalRates();
+});
     const stockSymbols = ['AAPL', 'GOOG', 'AMZN']; // Example symbols
 
     // Fetch real-time stock quotes
@@ -16,4 +20,3 @@ document.addEventListener('DOMContentLoaded', async () => {
         stockSymbols.map((symbol) => fetchHistoricalRates(symbol, date))
     );
     displayHistoricalRates(historicalData);
-});
