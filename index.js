@@ -122,15 +122,49 @@ export async function fetchRealTimeStockQuotes() {
             realTimeStockQuotes = data; 
             //iterate each stock to show in the ui
             data.forEach((quote) => {
+                
+                if (!quote.symbol || !quote.price) {
+                    console.error('Missing quote data:', quote);
+                    return;
+                }
                 displayRealTimeStockQuote(quote.symbol, quote.price);
+                
             })
 
         } catch (error) {
             // log errors
             console.error('Error fetching stock quotes:', error);
         }
-}
+    }
 
+ 
+
+function showAlert(message){
+    const alertBox=document.createElement('div');
+    alertBox.className = 'alert';
+    const closeBtn =document.createElement('span');
+    closeBtn.className='closebtn';
+    closeBtn.innerHTML ='&times';
+    closeBtn.onclick=()=>{
+        alertBox.style.display='none';
+    };
+    
+
+alertBox.textContent = message;
+    
+    // Append the close button to the alert box
+    alertBox.appendChild(closeBtn);
+
+    // Append the alert box to the body or a specific container
+    document.body.appendChild(alertBox);
+
+    // hide the alert automatically after a few seconds
+    
+
+    setTimeout(() => {
+        alertBox.style.display = 'none';
+    }, 5000); 
+}
 // Function to display real-time stock quotes in HTML
 function displayRealTimeStockQuote(symbol, price) {
     // Get the real-time rates list container
@@ -177,5 +211,7 @@ document.getElementById('searchInput').addEventListener('input', (event) => {
     
     searchStockQuotes(query); 
 });;
+
+
 // fetch and display real time stocks
 fetchRealTimeStockQuotes();
